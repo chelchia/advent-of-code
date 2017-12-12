@@ -27,3 +27,30 @@ for row in list_of_rows:
 	checksum = checksum + (maxi - mini)
 
 print("checksum is ", checksum)
+
+# === part 2 ===
+sum2 = 0
+
+def divisible(x, y):
+	if x % y == 0:
+		return x / y
+	elif y % x == 0:
+		return y / x
+	else:
+		return False
+
+for row in list_of_rows:
+	list_of_data = row.split('\t')
+	#converts strings in list_of_data to int
+	for index in range(len(list_of_data)):
+		list_of_data[index] = int(list_of_data[index])
+	#test divisibility
+	for x_index in range(len(list_of_data) - 1):
+		x_num = list_of_data[x_index]
+		for y_index in range(x_index + 1, len(list_of_data)):
+			y_num = list_of_data[y_index]
+			div = divisible(x_num, y_num)
+			if div != False:
+				sum2 = sum2 + div
+
+print("sum2 is ", sum2)
