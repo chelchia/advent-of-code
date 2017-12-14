@@ -528,9 +528,61 @@ def repeated_words(xs):
 for pp in list_of_pp:
 	list_of_words = pp.split()
 	valid = not(repeated_words(list_of_words))
-	# invalid = repeated_words(list_of_words)
-	# print(pp + " invalid?" + str(invalid))
 	if valid:
 		valid_count = valid_count + 1
 
 print("valid_count ", valid_count)
+
+# === part 2 ===
+valid_count2 = 0
+
+def remove(l, word):
+	for letter in range(len(word)):
+		if word[letter] == l:
+			l_index = letter
+			break
+	return (word[: l_index] + word[l_index + 1:])
+
+#is_anagram iterative version
+def is_anagram(word1, word2):
+	if len(word1) == len(word2):
+		bool = True
+		for letter1 in word1:
+			has_letter = letter1 in word2
+			if has_letter:
+				word2 = remove(letter1, word2)
+			else:
+				bool = False
+		return bool
+	else:
+		return False
+
+#is_anagram recursive version
+# def is_anagram(word1, word2):
+# 	if word1 == word2:
+# 		return True
+# 	elif (word1 == '') or (word2 == ''):
+# 		return False
+# 	else:
+# 		# print(word1)
+# 		has_letter = (word1[0]) in word2
+# 		if has_letter:
+# 			return True and is_anagram(word1[1:], remove(word1[0], word2))
+# 		else:
+# 			return False
+
+def has_anagram(xs):
+	bool = False
+	for index1 in range(len(xs)):
+		for index2 in range(index1 + 1, len(xs)):
+			if is_anagram(xs[index1], xs[index2]):
+				bool = True
+	return bool
+
+for pp in list_of_pp:
+	list_of_words = pp.split()
+	valid = not(has_anagram(list_of_words))
+	if valid:
+		valid_count2 = valid_count2 + 1
+
+print("valid_count2 ", valid_count2)
